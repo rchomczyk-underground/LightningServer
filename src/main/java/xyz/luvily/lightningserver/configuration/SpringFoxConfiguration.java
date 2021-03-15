@@ -1,4 +1,4 @@
-package xyz.luvily.lightningserver.configuration.configuration;
+package xyz.luvily.lightningserver.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
