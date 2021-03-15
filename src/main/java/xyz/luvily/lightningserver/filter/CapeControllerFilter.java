@@ -14,10 +14,14 @@ public class CapeControllerFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpRequest, HttpServletResponse httpResponse, FilterChain filterChain) throws IOException, ServletException {
-        httpResponse.addHeader("Server", "LightningServer 0.1 (Spring Boot)");
-        httpResponse.addHeader("Connection", "Keep-Alive");
-        httpResponse.addHeader("Accept", "image/jpeg, image/png");
-        httpResponse.addHeader("Accept-Ranges", "bytes");
+        String userAgent = httpRequest.getHeader("User-Agent");
+        if (userAgent != null && userAgent.startsWith("Java/")) {
+            httpResponse.addHeader("Server", "LightningServer 0.1 (Spring Boot)");
+            httpResponse.addHeader("Connection", "Keep-Alive");
+            httpResponse.addHeader("Accept", "image/jpeg, image/png");
+            httpResponse.addHeader("Accept-Ranges", "bytes");
+            httpResponse.addHeader("Transfer-Encoding", null);
+        }
 
         filterChain.doFilter(httpRequest, httpResponse);
     }

@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "server.baseurl",
+      "type": "java.lang.String",
+      "description": "Static url of our service."
+    }
+  ]
+}
