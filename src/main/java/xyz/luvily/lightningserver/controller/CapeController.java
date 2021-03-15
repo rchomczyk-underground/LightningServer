@@ -25,7 +25,7 @@ public class CapeController {
     }
 
     @CrossOrigin
-    @GetMapping( "/texture/{identifier}")
+    @GetMapping("/texture/{identifier}")
     public ResponseEntity<Resource> getSpecifiedCape(@PathVariable int identifier) {
         Cape cape = capeService.getCape(identifier);
         if (cape == null) {
