@@ -1,4 +1,4 @@
-package xyz.luvily.lightningserver.configuration;
+package xyz.luvily.lightningserver.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,15 +8,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
-public class ServiceSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Configuration
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private static final String ADMIN_ROLE = "ADMIN";
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
-                .antMatchers("/users/**").hasRole("ADMIN")
-                .antMatchers("/capes/texture/**").hasRole("ADMIN")
+                .antMatchers("/users/**").hasRole(ADMIN_ROLE)
+                .antMatchers("/capes/texture/**").hasRole(ADMIN_ROLE)
                 .antMatchers("/capes/**").permitAll()
                 .and()
                 .formLogin().permitAll();
@@ -29,7 +31,7 @@ public class ServiceSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("shitzuu")
                 .password(passwordEncoder.encode("my_secret_password_123_!@#"))
-                .roles("ADMIN");
+                .roles(ADMIN_ROLE);
     }
 
     @Bean
