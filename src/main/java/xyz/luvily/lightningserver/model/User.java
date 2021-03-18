@@ -14,7 +14,7 @@ public class User {
 
     public User(String username, int cape) {
         this.username = username;
-        this.cape = cape;
+        this.cape     = cape;
     }
 
     public String getUsername() {
@@ -25,8 +25,16 @@ public class User {
         return cape;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return "User (" + this.username + ")";
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", cape=" + cape +
+                '}';
     }
 }

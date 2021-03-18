@@ -11,8 +11,8 @@ import xyz.luvily.lightningserver.repository.CapeRepository;
 
 import java.util.Objects;
 
-@Service
 @CacheConfig(cacheNames = { "capes" })
+@Service
 public class CapeService {
 
     private final CapeRepository repository;
@@ -21,7 +21,7 @@ public class CapeService {
     @Autowired
     public CapeService(CapeRepository repository, CacheManager cacheManager) {
         this.repository = repository;
-        this.cache = cacheManager.getCache("capes");
+        this.cache      = cacheManager.getCache("capes");
     }
 
     @Cacheable
@@ -31,5 +31,13 @@ public class CapeService {
         }
 
         return (Cape) Objects.requireNonNull(cache.get(identifier)).get();
+    }
+
+    public Cache getCache() {
+        return cache;
+    }
+
+    public CapeRepository getRepository() {
+        return repository;
     }
 }

@@ -1,4 +1,4 @@
-package xyz.luvily.lightningserver.configuration;
+package xyz.luvily.lightningserver.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
@@ -6,18 +6,19 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Configuration
-public class CaffeineCacheConfiguration {
+public class CaffeineCacheConfig {
 
     @Bean
-    public Caffeine<Object, Object> caffeineConfig() {
-        return Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES);
+    public Caffeine<Object, Object> getDefaultConfig() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(Duration.ofMinutes(5));
     }
 
     @Bean
-    public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
+    public CacheManager getCacheManager(Caffeine<Object, Object> caffeine) {
         CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
         caffeineCacheManager.setCaffeine(caffeine);
         return caffeineCacheManager;
