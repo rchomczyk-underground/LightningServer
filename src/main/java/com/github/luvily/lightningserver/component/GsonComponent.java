@@ -1,4 +1,4 @@
-package xyz.luvily.lightningserver.component;
+package com.github.luvily.lightningserver.component;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
