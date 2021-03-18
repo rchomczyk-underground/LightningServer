@@ -2,13 +2,13 @@
 A simple server that emulates Optifine's one, making it capable of rendering visual addons.
 
 ## Requirements
-- Java Development Kit (JDK) in version 11
-- MongoDB and Redis server
-- At least a little bit of knowledge on the subject.
+- Java Development Kit (JDK) in version 11.
+- Redis server for caching and Mongo database for storing data.
+- At least a little of knowledge on the subject.
 
 
 ## Usage
-1. You should put a new entry into 'users' collection to your database, like this:
+1. You should put a new entry in 'users' collection to your database, like this:
 ```json
 {
   "username": "luvily",
@@ -16,7 +16,7 @@ A simple server that emulates Optifine's one, making it capable of rendering vis
 }
 ```
 
-2. You should put a new entry into 'capes' collection to your database, like this:
+2. You should put a new entry in 'capes' collection to your database, like this:
 ```json
 {
   "identifier": "0001",
