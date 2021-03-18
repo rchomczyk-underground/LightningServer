@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/users/**").hasRole("ADMIN")
-                .antMatchers("/capes/texture/**").permitAll()
+                .antMatchers("/capes/texture/**").hasRole("ADMIN")
                 .antMatchers("/capes/**").permitAll();
     }
 
