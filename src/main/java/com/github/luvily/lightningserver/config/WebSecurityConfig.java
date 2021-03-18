@@ -1,4 +1,4 @@
-package com.github.luvily.lightningserver.cache;
+package com.github.luvily.lightningserver.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
