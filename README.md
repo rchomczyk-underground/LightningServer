@@ -1,5 +1,5 @@
 # LightningServer
-A simple server that emulates Optifine's one, making it capable of rendering visual addons.
+A simple server that emulates Optifine's one, making it capable of rendering visual add-ons.
 
 ## Requirements
 - Java Development Kit (JDK) in version 11.

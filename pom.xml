@@ -15,7 +15,7 @@
     <version>1.0.0</version>
 
     <name>LightningServer</name>
-    <description>A simple server that emulates Optifine's one, making it capable of rendering visual addons.</description>
+    <description>A simple server that emulates Optifine's one, making it capable of rendering visual add-ons.</description>
 
     <properties>
         <java.version>11</java.version>
