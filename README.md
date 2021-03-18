@@ -30,6 +30,9 @@ A simple server that emulates Optifine's one, making it capable of rendering vis
 127.0.0.1 s.optifine.net
 ```
 
+### Here is the result
+![Click here](./assets/images/example.png)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
