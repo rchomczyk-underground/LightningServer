@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class GsonComponent {
 
     @Bean
-    public Gson getDefaultGson() {
+    public Gson gson() {
         return new GsonBuilder().disableHtmlEscaping()
                 .setPrettyPrinting()
                 .create();
