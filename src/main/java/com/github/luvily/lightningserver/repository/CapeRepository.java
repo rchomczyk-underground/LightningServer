@@ -9,5 +9,5 @@ import com.github.luvily.lightningserver.model.Cape;
 public interface CapeRepository extends MongoRepository<Cape, String> {
 
     @Query("{ identifier: ?0 }")
-    Cape findByIdentifier(String identifier);
+    Cape findOne(String identifier);
 }

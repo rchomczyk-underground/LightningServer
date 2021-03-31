@@ -1,48 +1,25 @@
 package com.github.luvily.lightningserver.model;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 @Document(collection = "users")
+@Data
 public class User implements Serializable {
 
     @Id
     private String id;
-    private String username;
-    private String cape;
+    private final String username;
+    private final String cape;
 
-    public User(String username, String cape) {
-        this.username = username;
-        this.cape = cape;
-    }
-
-    public User() {
-
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCape() {
-        return cape;
-    }
-
-    public void setCape(String cape) {
-        this.cape = cape;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public JsonObject toJson() {
+        return Json.object()
+                .add("username", username)
+                .add("cape", cape);
     }
 }

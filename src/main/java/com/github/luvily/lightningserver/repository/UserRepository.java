@@ -9,5 +9,5 @@ import com.github.luvily.lightningserver.model.User;
 public interface UserRepository extends MongoRepository<User, String> {
 
     @Query("{ username: ?0 }")
-    User findByUsername(String username);
+    User findOne(String username);
 }

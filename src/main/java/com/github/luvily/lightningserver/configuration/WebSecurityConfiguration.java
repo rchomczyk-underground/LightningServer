@@ -13,37 +13,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String ADMIN_ROLE = "ADMIN";
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // Disabling cors and csrf
-                .cors().and().csrf().disable()
-                // Setting authentication method to http basic
-                .httpBasic().and()
-                // Authorizing requests
+        httpSecurity.cors().and().csrf().disable()
+                .httpBasic()
+                .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/users/**"
-                ).hasRole("ADMIN")
-                .antMatchers(
-                        "/users"
-                ).hasRole("ADMIN")
-                .antMatchers(
-                        "/capes/texture/**"
-                ).hasRole("ADMIN")
-                .antMatchers(
-                        "/capes/**"
-                ).permitAll();
+                .antMatchers("/users/**").hasRole(ADMIN_ROLE)
+                .antMatchers("/users").hasRole(ADMIN_ROLE)
+                .antMatchers("/capes/texture/**").hasRole(ADMIN_ROLE)
+                .antMatchers("/capes/**").permitAll();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = passwordEncoder();
 
+        // Creating a new user "luvily : hello-world"
         auth.inMemoryAuthentication()
-                .withUser("shitzuu")
+                .withUser("luvily")
                 .password(passwordEncoder.encode("hello-world"))
-                .roles("ADMIN");
+                .roles(ADMIN_ROLE);
     }
 
     @Bean
