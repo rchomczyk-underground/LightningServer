@@ -9,4 +9,4 @@ In this moment I can only support 1.0.x version, because there are bunch of bugf
 
 
 ## Reporting a Vulnerability
-If you will notice any vulnerability instantly contact with us by [mail](mailto:ra.chomczyk@gmail.com). 
+If you will notice any vulnerability instantly contact in [mail](mailto:ra.chomczyk@gmail.com). 
