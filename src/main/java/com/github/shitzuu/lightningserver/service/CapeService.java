@@ -1,6 +1,7 @@
 package com.github.shitzuu.lightningserver.service;
 
 import com.github.shitzuu.lightningserver.repository.CapeRepository;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,16 @@ public class CapeService {
         return repository.findOne(key);
     }
 
-    // This isn't cached, because we need this data in real-time.
     public List<Cape> getCapes() {
         return repository.findAll();
+    }
+
+    public Cape putCape(Cape cape) {
+        return repository.save(cape);
+    }
+
+    @VisibleForTesting
+    public CapeRepository getRepository() {
+        return repository;
     }
 }

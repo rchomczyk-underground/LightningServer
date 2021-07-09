@@ -1,12 +1,11 @@
 package com.github.shitzuu.lightningserver.service;
 
 import com.github.shitzuu.lightningserver.repository.UserRepository;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.github.shitzuu.lightningserver.domain.User;
-
-import java.util.List;
 
 @Service
 public class UserService {
@@ -23,8 +22,12 @@ public class UserService {
         return repository.findOne(username);
     }
 
-    // This isn't cached, because we need this data in real-time.
-    public List<User> getUsers() {
-        return repository.findAll();
+    public User putUser(User user) {
+        return repository.save(user);
+    }
+
+    @VisibleForTesting
+    public UserRepository getRepository() {
+        return repository;
     }
 }

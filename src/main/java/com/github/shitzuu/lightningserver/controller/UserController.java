@@ -1,9 +1,10 @@
 package com.github.shitzuu.lightningserver.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.shitzuu.lightningserver.domain.User;
 import com.github.shitzuu.lightningserver.service.UserService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,29 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final Gson gson;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public UserController(UserService userService, Gson gson) {
+    public UserController(UserService userService, ObjectMapper objectMapper) {
         this.userService = userService;
-        this.gson = gson;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping(value = "/users/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getUser(@PathVariable String username) {
+    public ResponseEntity<String> getUser(@PathVariable String username) throws JsonProcessingException {
         User user = userService.getUser(username);
         if (user == null) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("status", 404);
-            jsonObject.addProperty("content", "'" + username + "' does not exist.");
-            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.NOT_FOUND);
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("status", 404);
+            objectNode.put("content", String.format("User with username '%s' does not exist.", username));
+            return new ResponseEntity<>(objectMapper.writeValueAsString(objectNode), HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<>(gson.toJson(user), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getUsers() {
-        return new ResponseEntity<>(gson.toJson(userService.getUsers()), HttpStatus.OK);
+        return new ResponseEntity<>(objectMapper.writeValueAsString(user), HttpStatus.OK);
     }
 }

@@ -23,15 +23,16 @@ public class LightningServerInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws IOException {
         userRepository.deleteAll();
-        capeRepository.deleteAll();
-        userRepository.insert(new User("shitzuu", "0001"));
+        userRepository.insert(new User("shvtzuu", "0001"));
 
         File file = new File("./assets/texture/0001.png");
+
         byte[] content = new byte[(int) file.length()];
-        try (DataInputStream in = new DataInputStream(new FileInputStream(file))) {
-            in.readFully(content);
+        try (DataInputStream inputStream = new DataInputStream(new FileInputStream(file))) {
+            inputStream.readFully(content);
         }
 
+        capeRepository.deleteAll();
         capeRepository.insert(new Cape("0001", content));
     }
 }

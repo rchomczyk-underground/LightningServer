@@ -1,11 +1,13 @@
 package com.github.shitzuu.lightningserver.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.shitzuu.lightningserver.domain.Cape;
 import com.github.shitzuu.lightningserver.domain.User;
 import com.github.shitzuu.lightningserver.service.CapeService;
 import com.github.shitzuu.lightningserver.service.UserService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -14,8 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-
 @RestController
 public class CapeController {
 
@@ -23,13 +23,13 @@ public class CapeController {
 
     private final CapeService capeService;
     private final UserService userService;
-    private final Gson gson;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public CapeController(CapeService capeService, UserService userService, Gson gson) {
+    public CapeController(CapeService capeService, UserService userService, ObjectMapper objectMapper) {
         this.capeService = capeService;
         this.userService = userService;
-        this.gson = gson;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping(value = "/capes/{username}.png", produces = MediaType.IMAGE_PNG_VALUE)
@@ -48,18 +48,16 @@ public class CapeController {
     }
 
     @GetMapping(value = "/capes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getCapes() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("amount", capeService.getCapes().size());
-        jsonObject.add("keys", gson.toJsonTree(capeService.getCapes()
-                .stream()
-                .map(Cape::getKey)
-                .collect(Collectors.toList())));
-        return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
-    }
+    public ResponseEntity<String> getCapes() throws JsonProcessingException {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("amount", capeService.getCapes().size());
 
-    @PostMapping(value = "/capes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> insertCape() {
-        return null;
+        ArrayNode arrayNode = objectMapper.createArrayNode();
+        for (Cape cape : capeService.getCapes()) {
+            arrayNode.add(cape.getKey());
+        }
+
+        objectNode.set("keys", arrayNode);
+        return new ResponseEntity<>(objectMapper.writeValueAsString(objectNode), HttpStatus.OK);
     }
 }

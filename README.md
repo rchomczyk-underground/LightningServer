@@ -19,7 +19,7 @@ You can now ask what I should add there, this is simple just add line like this 
 _If you still don't know how to do this look [there](./assets/hosts)._
 
 ### Wow, is there any screenshot, yes ¯\_(ツ)_/¯
-![LightningServer's showcase](assets/image/screenshot.png)
+![LightningServer's showcase](assets/image/showcase.png)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
