@@ -1,6 +1,9 @@
 # LightningServer
 Lightweight and simple web service, which is emulating an Optifine's one.
 
+## Note:
+This project isn't maintained anymore if you wish you can modify this project. 
+
 ### How to do this
 You should add a new entry to file in this location:
 - Linux and Mac OS:
